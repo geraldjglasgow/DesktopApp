@@ -25,13 +25,15 @@ public class Stats {
         match = matches.size();
         times = new LinkedHashSet[file_list.length][matches.size()];
         get_times();
-        print_times();
+        //print_times();
+        time_difference();
     }
 
     private void read_data(){
         try {
             int i=0;
             for (File file : file_list) {
+                System.out.println(file.toString());
                 String f = file.toString() + "/output.log";
                 BufferedReader Buffone = new BufferedReader(new FileReader(new File(f)));
                 List<String> unique = new ArrayList<String>();
@@ -72,6 +74,7 @@ public class Stats {
                 array.clear();
             }
         }
+        System.out.println(matches.size());
     }
     private void print_times(){
         int k,z;
@@ -128,7 +131,19 @@ public class Stats {
         return seconds;
     }
 
-    public void time_difference(){
-
+    public void time_difference() {
+        int k, l1=0, l2=0;
+        Iterator<Integer> itr0;
+        Iterator<Integer> itr1;
+        for (k = 0; k < matches.size(); k++) {
+            itr0 = times[0][k].iterator();
+            itr1 = times[1][k].iterator();
+            if((itr0.next() - itr1.next()) > 0){
+                l1++;
+            } else{
+                l2++;
+            }
+        }
+        System.out.println(l1 + " " + l2);
     }
 }

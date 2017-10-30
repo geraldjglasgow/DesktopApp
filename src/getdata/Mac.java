@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 public class Mac {
     private String[] files = {
-            "/home/pi/Project/Battery/*.py",
+            "/home/pi/Project/Battery/*.log",
             "/home/pi/Project/Buttons/*.log",
             "/home/pi/Project/probe-finder/*.log",
             "/home/pi/Project/Temperature/*.log"};
