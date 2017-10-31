@@ -19,11 +19,10 @@ public class Mac {
 
     private void start(){
         for(String file : files){
-            mac_command("scp pi@10.0.0.200:" + file + " " + directory);
-            mac_command("scp pi@10.0.0.201:" + file + " " + directory);
+            //mac_command("scp pi@10.0.0.200:" + file + " " + directory);
+            //mac_command("scp pi@10.0.0.201:" + file + " " + directory);
         }
-
-
+        mac_command("ssh pi@192.168.1.172");
     }
 
     private String mac_command(String cmd) {
@@ -36,4 +35,3 @@ public class Mac {
         return cmd;
     }
 }
-
