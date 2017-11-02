@@ -14,7 +14,10 @@ public class Mac extends Get_Info{
 
     private void start(){
         Session session;
-        session = super.getConnRSA();
+        session = super.getConnRSA("10.0.0.200");
+        if(session == null){
+            session = super.getConnRSA("10.0.0.201");
+        }
         if(session != null){
             for(String command : super.cmd){
                 send_command(command, session);
@@ -22,8 +25,6 @@ public class Mac extends Get_Info{
             mac_command("scp pi@10.0.0.221:" + "/home/pi/Desktop/"+dir+"" + " " + directory);
             send_command("trash /home/pi/Desktop/"+dir, session);
             session.disconnect();
-        } else {
-            System.out.println("I get here");
         }
     }
 
