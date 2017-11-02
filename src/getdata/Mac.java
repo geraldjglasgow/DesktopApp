@@ -10,7 +10,6 @@ public class Mac extends Get_Info{
 
     public Mac(){
         start();
-
     }
 
     private void start(){
@@ -23,6 +22,8 @@ public class Mac extends Get_Info{
             mac_command("scp pi@10.0.0.221:" + "/home/pi/Desktop/"+dir+"" + " " + directory);
             send_command("trash /home/pi/Desktop/"+dir, session);
             session.disconnect();
+        } else {
+            System.out.println("I get here");
         }
     }
 
