@@ -77,7 +77,7 @@ public class Get_Info {
             chan.connect();
             chan.disconnect();
         } catch(JSchException e){
-            System.out.println(e);
+            System.out.println("Get_Info->send_command " + e);
         }
     }
 }
