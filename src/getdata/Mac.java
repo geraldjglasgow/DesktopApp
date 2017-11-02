@@ -15,7 +15,7 @@ public class Mac extends Get_Info{
 
     private void start(){
         Session session;
-        session = super.getConnPWD();
+        session = super.getConnRSA();
         if(session != null){
             for(String command : super.cmd){
                 send_command(command, session);
