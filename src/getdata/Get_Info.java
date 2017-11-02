@@ -13,11 +13,8 @@ public class Get_Info {
             "mv /home/pi/Project/Buttons/*.log /home/pi/Desktop/"+dir+"/button.log",
             "mv /home/pi/Project/Temperature/*.log /home/pi/Desktop/"+dir+"/cputemp.log"};
 
-    public Get_Info(){
-
-    }
-
     public void conn(){
+
         if(SystemUtils.IS_OS_WINDOWS){
             System.out.println("WINDOWS");
         } else if(SystemUtils.IS_OS_MAC_OSX){
@@ -29,30 +26,35 @@ public class Get_Info {
         }
     }
 
-    protected Session getConnRSA(){
+    /**
+     * Creates SSH connection with RSA key
+     * @return
+     */
+    protected Session getConnRSA(String ip){
         JSch jsch = new JSch();
         String privatekey = "/Users/SSLGhost/.ssh/id_rsa";
 
         Session session = null;
         try {
             jsch.addIdentity(privatekey);
-            session = jsch.getSession("pi", "10.0.0.221", 22);
+            session = jsch.getSession("pi", ip, 22);
             session.setConfig("PrefferedAuthentications", "publickey");
             Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");
             session.setConfig(config);
-            session.connect();
-            try{
-                session.wait(1000);
-            } catch (InterruptedException e){
-                System.out.println("getConnRSA InterruptedException: " +e);
-            }
+            session.connect(3000);
         } catch(JSchException e){
             System.out.println("getConnRSA JSchExcpetion: " + e);
         }
+        if(!session.isConnected())
+            session=null;
         return session;
     }
 
+    /**
+     * Creates SSH connection using password (for development)
+     * @return
+     */
     public Session getConnPWD(){
         JSch jsch = new JSch();
         Session session = null;
