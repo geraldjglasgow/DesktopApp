@@ -1,7 +1,10 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.ArrayList;
 
 public class Stats {
 
@@ -16,7 +19,7 @@ public class Stats {
     private void start(){
         read_data();
         System.out.println(matches.size());
-        getMatchesTimes();
+        //getMatchesTimes();
     }
 
     private void read_data(){
