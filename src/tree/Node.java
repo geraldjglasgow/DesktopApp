@@ -1,7 +1,6 @@
 package tree;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Node {
     Node left, right;
@@ -27,6 +26,7 @@ public class Node {
     public String getMAC(){
         return this.MAC;
     }
+
     public void printTimes(){
         for(int i : times){
             System.out.print(i + " ");
