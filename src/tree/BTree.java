@@ -2,7 +2,7 @@ package tree;
 
 public class BTree {
 
-    public static  Node root;
+    private Node root;
     public BTree(){
         this.root = null;
     }
