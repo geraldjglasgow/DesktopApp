@@ -1,16 +1,18 @@
+package com.analyze;
+
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 
-public class Process {
+public class GetFiles {
 
     private File filelist[];
     private String PATH;
     private boolean DEBUG = true;
 
-    public Process(String PATH){
+    public GetFiles(String PATH){
         this.PATH = PATH;
         get_folder_list(PATH);
         create_temp_folder();
@@ -25,14 +27,14 @@ public class Process {
             int sub_dirs = 0;
             File listDir[] = dir.listFiles();
             for (File aListDir1 : listDir) {
-                if (aListDir1.isDirectory() && aListDir1.toString().compareTo(PATH + "tempfiles") < 0) {
+                if (aListDir1.isDirectory() && aListDir1.toString().compareTo(PATH + "/tempfiles") < 0) {
                     sub_dirs++;
                 }
             }
             File filelist[] = new File[sub_dirs];
             sub_dirs = 0;
             for (File aListDir : listDir) {
-                if (aListDir.isDirectory() && aListDir.toString().compareTo(PATH + "tempfiles") < 0) {
+                if (aListDir.isDirectory() && aListDir.toString().compareTo(PATH + "/tempfiles") < 0) {
                     filelist[sub_dirs] = aListDir;
                     sub_dirs++;
                 }
@@ -49,7 +51,7 @@ public class Process {
      * @return success or failure of creating folder
      */
     private boolean create_temp_folder(){
-        File theDir = new File(PATH + "tempfiles");
+        File theDir = new File(PATH + "/tempfiles");
         boolean result = false;
         // if the directory does not exist, create it
         if (!theDir.exists()) {
@@ -63,7 +65,7 @@ public class Process {
             }
             if(result) {
                 if(DEBUG)
-                    System.out.println("Process Complete");
+                    System.out.println("com.analyze.GetFiles Complete");
             }
         }
         return result;
