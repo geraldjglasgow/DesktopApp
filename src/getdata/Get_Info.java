@@ -23,7 +23,9 @@ public class Get_Info {
         this.p = p;
         if(SystemUtils.IS_OS_WINDOWS){
             System.out.println("WINDOWS");
+            new Mac();
         } else if(SystemUtils.IS_OS_MAC_OSX){
+            System.out.println("MAC");
             new Mac();
         } else if(SystemUtils.IS_OS_UNIX) {
             System.out.println("UNIX");
