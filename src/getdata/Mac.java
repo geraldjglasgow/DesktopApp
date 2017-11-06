@@ -3,33 +3,41 @@ package getdata;
 import com.jcraft.jsch.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Properties;
 
 
-public class Mac extends Get_Info{
+public class Mac extends Get_Info implements GetData{
     private String directory = "/Users/SSLGhost/Desktop";
+    private String ip;
+    private String[] addr = {"10.0.0.200", "10.0.0.201"};
 
     public Mac(){
         start();
     }
 
-    private void start(){
+    public void start(){
         Session session;
-        session = super.getConnRSA("10.0.0.200");
+        session = super.getConnRSA(addr[0]);
+        ip = addr[0];
         if(session == null){
-            session = super.getConnRSA("10.0.0.201");
+            session = super.getConnRSA(addr[1]);
+            ip = addr[1];
         }
+        p.setValue(25);
         if(session != null){
             for(String command : super.cmd){
                 send_command(command, session);
             }
-            mac_command("scp pi@10.0.0.221:" + "/home/pi/Desktop/"+dir+"" + " " + directory);
+            p.setValue(50);
+            SendCommand("scp -r pi@"+ip+":" + "/home/pi/Desktop/*" + " " + directory); //+dir+"/*.log
+            p.setValue(75);
             send_command("trash /home/pi/Desktop/"+dir, session);
+            p.setValue(100);
             session.disconnect();
         }
     }
 
-    private String mac_command(String cmd) {
-
+    public void SendCommand(String cmd) {
         try {
             Process p = Runtime.getRuntime().exec(cmd);
             BufferedReader read = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -46,6 +54,21 @@ public class Mac extends Get_Info{
         } catch(java.io.IOException e){
 
         }
-        return cmd;
+    }
+
+    public Session getConnPWD(){
+        JSch jsch = new JSch();
+        Session session = null;
+        try {
+            session = jsch.getSession("pi", "10.0.0.221", 22);
+            session.setPassword("raspberry");
+            Properties config = new Properties();
+            config.put("StrictHostKeyChecking", "no");
+            session.setConfig(config);
+            session.connect();
+        } catch(JSchException e){
+            System.out.println("getConnPWD JSchExcpetion: " + e);
+        }
+        return session;
     }
 }
