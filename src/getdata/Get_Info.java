@@ -2,19 +2,25 @@ package getdata;
 
 import com.jcraft.jsch.*;
 import org.apache.commons.lang3.SystemUtils;
+
+import javax.swing.*;
 import java.util.Properties;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Get_Info {
-    protected String dir = "Output";
+    protected String dir = getDate();
     protected String [] cmd = {
-            "mkdir /home/pi/Desktop/Test",
+            "mkdir /home/pi/Desktop/" + dir,
             "mv /home/pi/Project/probe-finder/*.log /home/pi/Desktop/"+dir+"/output.log",
             "mv /home/pi/Project/Battery/*.log /home/pi/Desktop/"+dir+"/battery.log",
             "mv /home/pi/Project/Buttons/*.log /home/pi/Desktop/"+dir+"/button.log",
             "mv /home/pi/Project/Temperature/*.log /home/pi/Desktop/"+dir+"/cputemp.log"};
+    public JProgressBar p;
 
-    public void conn(){
-
+    public void conn(JProgressBar p){
+        this.p = p;
         if(SystemUtils.IS_OS_WINDOWS){
             System.out.println("WINDOWS");
         } else if(SystemUtils.IS_OS_MAC_OSX){
@@ -55,21 +61,7 @@ public class Get_Info {
      * Creates SSH connection using password (for development)
      * @return
      */
-    public Session getConnPWD(){
-        JSch jsch = new JSch();
-        Session session = null;
-        try {
-            session = jsch.getSession("pi", "10.0.0.221", 22);
-            session.setPassword("raspberry");
-            Properties config = new Properties();
-            config.put("StrictHostKeyChecking", "no");
-            session.setConfig(config);
-            session.connect();
-        } catch(JSchException e){
-            System.out.println("getConnPWD JSchExcpetion: " + e);
-        }
-        return session;
-    }
+
 
     protected void send_command(String cmd, Session session){
         try {
@@ -81,5 +73,12 @@ public class Get_Info {
         } catch(JSchException e){
             System.out.println("Get_Info->send_command " + e);
         }
+    }
+
+    private String getDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:HH");
+        Date date = new Date();
+        return dateFormat.format(date).toString();
+
     }
 }
