@@ -6,7 +6,8 @@ public class Main {
         JFrame frame = new JFrame("APP");
         frame.setContentPane(new App().panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        frame.setSize(550, 200);
+        //frame.pack();
         frame.setVisible(true);
     }
 }

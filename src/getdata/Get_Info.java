@@ -22,7 +22,7 @@ public class Get_Info {
 
     public void conn(JProgressBar p, String file){
         this.p = p;
-        this.file = file;
+        this.file =file;
         if(SystemUtils.IS_OS_WINDOWS){
             System.out.println("WINDOWS");
             new Mac();

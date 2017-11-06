@@ -14,20 +14,23 @@ public class App {
     public JProgressBar progressBar1;
     private JLabel label0;
     private JLabel label1;
+    private String home = "~/";
     private JFileChooser fc;
     private String file="";
+
 
     public App(){
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fc = new JFileChooser();
-                fc.setCurrentDirectory(new java.io.File("~/Users/SSLGHost"));
+                fc.setCurrentDirectory(new java.io.File(home));
                 fc.setDialogTitle("test");
                 fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 fc.setAcceptAllFileFilterUsed(false);
                 fc.showOpenDialog(panelMain);
                 file = fc.getSelectedFile().toString();
+                home = fc.getSelectedFile().getParent();
                 label0.setText(file);
             }
         });
@@ -36,6 +39,7 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 Get_Info data = new Get_Info();
                 data.conn(progressBar1, file);
+                progressBar1.setValue(100);
             }
         });
         analyzeButton.addActionListener(new ActionListener() {
