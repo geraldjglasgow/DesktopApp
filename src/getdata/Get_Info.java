@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class Get_Info {
     protected String dir = getDate();
+    protected String file;
     protected String [] cmd = {
             "mkdir /home/pi/Desktop/" + dir,
             "mv /home/pi/Project/probe-finder/*.log /home/pi/Desktop/"+dir+"/output.log",
@@ -19,8 +20,9 @@ public class Get_Info {
             "mv /home/pi/Project/Temperature/*.log /home/pi/Desktop/"+dir+"/cputemp.log"};
     public JProgressBar p;
 
-    public void conn(JProgressBar p){
+    public void conn(JProgressBar p, String file){
         this.p = p;
+        this.file = file;
         if(SystemUtils.IS_OS_WINDOWS){
             System.out.println("WINDOWS");
             new Mac();
