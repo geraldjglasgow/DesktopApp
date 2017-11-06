@@ -35,7 +35,7 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Get_Info data = new Get_Info();
-                data.conn(progressBar1);
+                data.conn(progressBar1, file);
             }
         });
         analyzeButton.addActionListener(new ActionListener() {
