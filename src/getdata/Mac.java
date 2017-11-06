@@ -17,22 +17,23 @@ public class Mac extends Get_Info implements GetData{
 
     public void start(){
         Session session=null;
-        for(String IP : addr){
-            session = super.getConnRSA(IP);
-            if(session != null)
-                ip = IP;
+        for(int i=0;i<addr.length;i++){
+            session = super.getConnRSA(addr[i]);
+            if(session != null) {
+                ip = addr[i];
                 break;
+            }
         }
-        p.setValue(25);
+        //p.setValue(25);
         if(session != null){
             for(String command : super.cmd){
                 send_command(command, session);
             }
-            p.setValue(50);
-            SendCommand("scp -r pi@"+ip+":" + "/home/pi/Desktop/*" + " " + directory); //+dir+"/*.log
-            p.setValue(75);
+            //p.setValue(50);
+            SendCommand("scp -r pi@"+ip+":" + "/home/pi/Desktop/*" + " " + file); //+dir+"/*.log
+            //p.setValue(75);
             send_command("trash /home/pi/Desktop/"+dir, session);
-            p.setValue(100);
+            //p.setValue(100);
             session.disconnect();
         }
     }
