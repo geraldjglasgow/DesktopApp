@@ -7,9 +7,9 @@ public class BTree {
         this.root = null;
     }
 
-    public void insert(String MAC, int time){
+    public void insert(String MAC, int time, int index){
         if(root==null){
-            root = new Node(MAC, time);
+            root = new Node(MAC, time, index);
             return;
         }
         Node curr = root;
@@ -19,17 +19,17 @@ public class BTree {
             if(curr.getMAC().compareTo(MAC) > 0){
                 curr = curr.left;
                 if(curr==null){
-                    parent.left = new Node(MAC, time);
+                    parent.left = new Node(MAC, time, index);
                     return;
                 }
             }else if(curr.getMAC().compareTo(MAC) < 0){
                 curr = curr.right;
                 if(curr==null){
-                    parent.right = new Node(MAC, time);
+                    parent.right = new Node(MAC, time, index);
                     return;
                 }
             } else {
-                curr.AddTime(time);
+                curr.AddTime(time, index);
                 return;
             }
         }
