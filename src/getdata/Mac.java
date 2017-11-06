@@ -16,12 +16,12 @@ public class Mac extends Get_Info implements GetData{
     }
 
     public void start(){
-        Session session;
-        session = super.getConnRSA(addr[0]);
-        ip = addr[0];
-        if(session == null){
-            session = super.getConnRSA(addr[1]);
-            ip = addr[1];
+        Session session=null;
+        for(String IP : addr){
+            session = super.getConnRSA(IP);
+            if(session != null)
+                ip = IP;
+                break;
         }
         p.setValue(25);
         if(session != null){
